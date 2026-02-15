@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FACULTECH Dashboard</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2c3e50">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js - Load with callback to ensure it's ready -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Wait for Chart.js to be fully loaded before allowing app.js to run
+    window.chartJsReady = new Promise((resolve) => {
+      if (window.Chart) {
+        resolve(window.Chart);
+      } else {
+        window.addEventListener('load', () => {
+          // Give it a bit more time to initialize
+          setTimeout(() => resolve(window.Chart), 100);
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+
+  <!-- ================= TOP-RIGHT CONTROLS ================= -->
+  <div class="top-controls">
+    <div class="utility-controls">
+      <button id="theme-toggle">🌙 Dark Mode</button>
+      <button id="logout-btn-top" onclick="logout()">Logout</button>
+    </div>
+    <div class="auth-controls">
+      <span class="welcome-text">WELCOME</span>
+      <input type="email" id="header-email" placeholder="Email" required>
+      <input type="password" id="header-password" placeholder="Password" required>
+      <button class="signup-btn" onclick="handleSignUp()">Sign Up</button>
+      <button class="login-btn" onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <h1>FACULTECH</h1>
+    <p>Smoke & Vape Detection Monitoring System</p>
+  </header>
+
+  <!-- ================= AUTH SECTION ================= -->
+  <div id="auth-container">
+    <section id="auth-section">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">Login or Sign Up to continue</p>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <div class="auth-buttons">
+        <button class="signup-btn" onclick="handleSignUp()">Sign Up</button>
+        <button class="login-btn" onclick="handleLogin()">Login</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section id="dashboard-section" style="display:none;">
+    <h2>Live Sensor Status</h2>
+
+    <div class="card sensor-card">
+      <p><strong>CO (ppm):</strong> <span class="sensor-value" id="co">--</span></p>
+      <p><strong>PM2.5:</strong> <span class="sensor-value" id="pm25">--</span></p>
+    </div>
+
+    <div class="card chart-card">
+      <h3>Sensor Graph</h3>
+      <canvas id="sensorChart" width="800" height="350"></canvas>
+    </div>
+
+    <p class="status-text">
+      Status: <span id="status">Waiting for notifications...</span>
+    </p>
+  </section>
+
+  <!-- ================= CCTV SECTION ================= -->
+  <section id="cctv-section" style="display:none;">
+    <h2>CCTV Feed</h2>
+
+    <div class="cctv-container">
+
+      <!-- Cloudinary Video -->
+      <video 
+        id="cctv-video"
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source 
+          src="https://res.cloudinary.com/dearsc0jv/video/upload/v1771141018/robloxapp-20231102-1631045_m1azu9.mp4" 
+          type="video/mp4"
+        >
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- LIVE Overlay -->
+      <div class="cctv-overlay">
+        <div class="live-indicator">
+          <span class="rec-dot"></span> LIVE CAMERA 1
+        </div>
+        <div class="cctv-timestamp" id="cctv-timestamp"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // Auto update timestamp every second
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("cctv-timestamp").innerText =
+        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+    }, 1000);
+  </script>
+
+  <script type="module" src="theme.js"></script>
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>
