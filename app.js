@@ -59,7 +59,7 @@ async function initializeMessaging() {
 // Initialize messaging on load
 initializeMessaging();
 
-const BACKEND_URL = "http://192.168.18.12:3000"; // Change to your backend IP
+const BACKEND_URL = "https://facultech-backend-2.onrender.com/"; // Change to your backend IP
 
 // ================= AUTH FUNCTIONS =================
 window.handleSignUp = async function() {
