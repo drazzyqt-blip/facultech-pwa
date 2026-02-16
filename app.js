@@ -59,7 +59,7 @@ async function initializeMessaging() {
 // Initialize messaging on load
 initializeMessaging();
 
-const BACKEND_URL = "https://facultech-backend-2.onrender.com/"; // Change to your backend IP
+const BACKEND_URL = "https://facultech-backend-2.onrender.com"; // ✅ FIXED: Removed trailing slash
 
 // ================= AUTH FUNCTIONS =================
 window.handleSignUp = async function() {
@@ -609,4 +609,3 @@ function appendSensorGraphData(co, pm25) {
     console.error("Error updating sensor graph:", error);
   }
 }
-
