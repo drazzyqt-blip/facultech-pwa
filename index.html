@@ -92,19 +92,7 @@
     <div class="cctv-container">
 
       <!-- Cloudinary Video -->
-      <video 
-        id="cctv-video"
-        autoplay
-        muted
-        loop
-        playsinline
-      >
-        <source 
-          src="https://res.cloudinary.com/dearsc0jv/video/upload/v1771141018/robloxapp-20231102-1631045_m1azu9.mp4" 
-          type="video/mp4"
-        >
-        Your browser does not support the video tag.
-      </video>
+      <iframe src="http://192.168.0.111:8888/tapo" frameborder="0" allowfullscreen width="720" height="640"></iframe>
 
       <!-- LIVE Overlay -->
       <div class="cctv-overlay">
@@ -113,6 +101,11 @@
         </div>
         <div class="cctv-timestamp" id="cctv-timestamp"></div>
       </div>
+
+      <!-- MANUAL CALL FOR ANOMALY API -->
+       <div>
+        <button id="anomaly-btn" onclick="handleFakeAnomaly()">Anomaly Detected Now</button>
+       </div>
 
     </div>
   </section>

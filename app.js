@@ -59,7 +59,8 @@ async function initializeMessaging() {
 // Initialize messaging on load
 initializeMessaging();
 
-const BACKEND_URL = "http://192.168.18.12:3000"; // Change to your backend IP
+// const BACKEND_URL = "https://facultech-backend-2.onrender.com/"; // Change to your backend IP
+const BACKEND_URL = "http://192.168.0.111:3000"; // Change to your backend IP
 
 // ================= AUTH FUNCTIONS =================
 window.handleSignUp = async function() {
@@ -258,6 +259,23 @@ function stopSensorPolling() {
   if (!sensorPollInterval) return;
   clearInterval(sensorPollInterval);
   sensorPollInterval = null;
+}
+
+// ================= MANUAL ANOMALY API CALL =================
+window.handleFakeAnomaly = async () => {
+  try {
+    await fetch(`${BACKEND_URL}/api/sensor-data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Simulate anomaly to be above threshold of co_ppm: 1.3 and pm25: 200
+      body: JSON.stringify({ co_ppm: 0.5, pm25: 1000 }),
+    });
+    console.log("Anomaly data sent successfully");
+  } catch (error) {
+    console.error("Error sending anomaly data:", error);
+  }
 }
 
 // ================= CCTV VIDEO OR CANVAS ANIMATION =================
